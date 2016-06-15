@@ -38,13 +38,19 @@ body {
 }
 
 #topArtistsCard {
-	background-color: #3F51B5;
+	background-color: #EC407A;
 }
 
 #searchArtistsCard {
-	background-color: #00E676;
+	background-color: #AB47BC;
 }
 
 #loginCard {
-	background-color: #FF5722;
+	background-color: #5C6BC0
+;
 }
+
+.mdl-button {
+	float: right;
+}
+
