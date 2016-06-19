@@ -93,37 +93,37 @@ class RawArtistAliasWrapper {
 
 class RawTrack extends ReflectiveToString {
   var track_id: String = null
+  var track_name: String = null
+  var artist_name: String = null
   var track_mbid: String = null
   var track_length: String = null
   var lyrics_id: String = null
   var instrumental: String = null
   var subtitle_id: String = null
-  var track_name: String = null
   var album_name: String = null
   var album_id: String = null
   var artist_id: String = null
   var album_coverart_100x100: String = null
   var artist_mbid: String = null
-  var artist_name: String = null
 
   def toTrack: Track = {
-    val t = new Track()
+    val track = new Track()
 
-    t.id = this.track_id
-    t.mbid = this.track_mbid
-    t.length = this.track_length
-    t.lyricsId = this.lyrics_id
-    t.instrumental = this.instrumental
-    t.subtitleId = this.subtitle_id
-    t.name = this.track_name
-    t.albumName = this.album_name
-    t.albumId = this.album_id
-    t.artistId = this.artist_id
-    t.artistMbid = this.artist_mbid
-    t.albumName = this.artist_name
-    t.coverart = this.album_coverart_100x100
+    track.id = this.track_id
+    track.name = this.track_name
+    track.artistName = this.artist_name
+    track.mbid = this.track_mbid
+    track.length = this.track_length
+    track.lyricsId = this.lyrics_id
+    track.instrumental = this.instrumental
+    track.subtitleId = this.subtitle_id
+    track.albumName = this.album_name
+    track.albumId = this.album_id
+    track.artistId = this.artist_id
+    track.artistMbid = this.artist_mbid
+    track.coverart = this.album_coverart_100x100
 
-    t
+    track
   }
 }
 

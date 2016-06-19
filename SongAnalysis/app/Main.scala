@@ -1,23 +1,18 @@
 import scala.collection.JavaConversions._
-
+import services._
 
 object Main {
 
-  private def service: services.MusixMatch = {
-    new services.MusixMatch()
+  private def service: MusixMatchClient = {
+    new MusixMatchClient()
   }
 
   def main(args: Array[String]) {
-    println("Charts: "+getTrackCharts())
+     val tracks = service.getTrackCharts()
+     
+     for(track <- tracks) {
+       println(track)
+     }
   }
 
-  def getTrackCharts(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
-    println("\n\nInside api cal\n\n")
-    val tracks = service.getTrackCharts(new services.GetTrackChart(country, hasLyrics, page, pageSize)).tracks
-    
-    for(t  <- tracks) {
-      println(t.name)
-    }
-    
-  }
 }
