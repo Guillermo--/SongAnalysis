@@ -1,7 +1,8 @@
 package services
 
-import com.google.gson.Gson
 import org.slf4j.LoggerFactory
+import scala.collection.JavaConverters._
+import com.google.gson.Gson
 
 class MusixMatch {
   private val apiKey: String = "c3bdc694604d4a059cf880fe509c032e";
@@ -25,9 +26,31 @@ class MusixMatch {
 
   private def call(url: String) = {
     val jsonResponse = scala.io.Source.fromURL(url).mkString
+    
+    val aux = new Gson().fromJson(jsonResponse, classOf[AuxServiceResponse])
+    aux.check
+
+    try {
+      if (aux.is404) {
+        val r = new ServiceResponse
+        r.message = new Message
+        r.message.header = aux.message.header
+        r
+      } else
+        new Gson().fromJson(jsonResponse, classOf[ServiceResponse])
+    }
+    catch {
+      case e: Exception => LOGGER.error("Unable to unmarshall json " + jsonResponse, e); throw e
+    }
+
   }
 
+
   def getTrackCharts(req: GetTrackChart) = {
+    println("URL: "+makeApiUrl(GET_TRACK_CHART, req)+"\n")
+    
     call(makeApiUrl(GET_TRACK_CHART, req))
+    
   }
 }
+
