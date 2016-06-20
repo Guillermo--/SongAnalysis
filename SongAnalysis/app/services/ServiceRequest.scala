@@ -8,3 +8,9 @@ class GetTrackChart(
   
     def this() = this(null, null, -1, -1)
 }
+
+class GetTrack(var track_id: String) extends AsQueryString {
+
+}
+
+

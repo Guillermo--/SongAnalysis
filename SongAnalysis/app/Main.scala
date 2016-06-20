@@ -10,9 +10,7 @@ object Main {
   def main(args: Array[String]) {
      val tracks = service.getTrackCharts()
      
-     for(track <- tracks) {
-       println(track)
-     }
+     println("\n\n"+service.getLyrics(tracks.get(3).id).body)
   }
 
 }

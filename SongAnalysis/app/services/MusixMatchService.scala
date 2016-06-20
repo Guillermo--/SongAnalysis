@@ -26,7 +26,7 @@ class MusixMatchService {
 
   private def call(url: String) = {
     val jsonResponse = scala.io.Source.fromURL(url).mkString
-    
+
     val aux = new Gson().fromJson(jsonResponse, classOf[AuxServiceResponse])
     aux.check
 
@@ -38,8 +38,7 @@ class MusixMatchService {
         r
       } else
         new Gson().fromJson(jsonResponse, classOf[ServiceResponse])
-    }
-    catch {
+    } catch {
       case e: Exception => LOGGER.error("Unable to unmarshall json " + jsonResponse, e); throw e
     }
   }
@@ -47,6 +46,11 @@ class MusixMatchService {
   def getTrackCharts(req: GetTrackChart) = {
     call(makeApiUrl(GET_TRACK_CHART, req))
   }
-  
+
+  def getLyrics(req: GetTrack) = {
+    call(makeApiUrl(GET_TRACK_LYRICS, req))
+  }
+ 
+
 }
 
