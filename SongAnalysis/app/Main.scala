@@ -9,7 +9,7 @@ object Main {
   }
 
   def main(args: Array[String]) = {
-     println(TopTracks.getOverallWordCount(null, null, -1, 5))
+     println(TopTracks.getOverallWordCount(null, null, -1, 2))
   }
 
 }

@@ -23,16 +23,13 @@ object TopTracks {
     var aggregatedLyrics = mutable.StringBuilder.newBuilder
 
     getTopTracks(country, hasLyrics, page, pageSize).foreach {
-      track => 
-        if(musixMatchService.getLyrics(track.id) != null)
+      track =>
+        if (musixMatchService.getLyrics(track.id) != null)
           aggregatedLyrics.append(musixMatchService.getLyrics(track.id).body)
     }
 
-    var cleanedAggregatedLyrics = aggregatedLyrics.toString().toLowerCase().replaceAll("[^A-Za-z0-9 ]", "").replaceAll("this lyrics is not for commercial use", "")
-
-    println("\ncleanedAggregatedLyrics lyrics: " + cleanedAggregatedLyrics)
+    var cleanedAggregatedLyrics = aggregatedLyrics.toString().replaceAll("""[\p{Punct}&&[^']]""", "").toLowerCase().replaceAll("this lyrics is not for commercial use", "")
     wordCounter.getWordCounts(cleanedAggregatedLyrics)
-
   }
 
 }
