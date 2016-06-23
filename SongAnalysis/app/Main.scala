@@ -1,5 +1,6 @@
 import scala.collection.JavaConversions._
-import services._
+import musixmatch._
+import controllers._
 
 object Main {
 
@@ -7,10 +8,8 @@ object Main {
     new MusixMatchClient()
   }
 
-  def main(args: Array[String]) {
-     val tracks = service.getTrackCharts()
-     
-     println("\n\n"+service.getLyrics(tracks.get(3).id).body)
+  def main(args: Array[String]) = {
+     println(TopTracks.getOverallWordCount(null, null, -1, 5))
   }
 
 }

@@ -1,4 +1,4 @@
-package services
+package musixmatch
 
 import java.lang.RuntimeException
 import java.util.{ Date, ArrayList }

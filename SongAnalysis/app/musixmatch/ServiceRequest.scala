@@ -1,4 +1,4 @@
-package services
+package musixmatch
 
 class GetTrackChart(
     var country: String = null,

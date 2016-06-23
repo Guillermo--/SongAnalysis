@@ -1,6 +1,5 @@
-package services
+package musixmatch
 
-import java.lang.StringBuffer
 import java.net.URLEncoder
 
 class AsQueryString {

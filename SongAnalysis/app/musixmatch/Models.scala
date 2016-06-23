@@ -1,4 +1,4 @@
-package services
+package musixmatch
 
 import java.util.{ Date, ArrayList }
 

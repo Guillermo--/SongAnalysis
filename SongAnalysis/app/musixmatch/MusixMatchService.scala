@@ -1,8 +1,9 @@
-package services
+package musixmatch
 
 import org.slf4j.LoggerFactory
 import scala.collection.JavaConverters._
 import com.google.gson.Gson
+
 
 class MusixMatchService {
   private val apiKey: String = "c3bdc694604d4a059cf880fe509c032e";
