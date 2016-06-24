@@ -9,7 +9,9 @@ object Main {
   }
 
   def main(args: Array[String]) = {
-     println(TopTracks.getOverallWordCount(null, null, -1, 2))
+    //println(TopTracks.getOverallWordCount(null, null, -1, 5))
+    //println(TopTracks.getTrackWithMostNonRepeatingWords(null, null, -1, 10))
+    println(TopTracks.getTrackWithMostRepeatingWords(null, null, -1, 10))
   }
 
 }
