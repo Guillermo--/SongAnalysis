@@ -3,7 +3,7 @@ package services
 import musixmatch._
 import scala.collection._
 
-class WordCounter {
+class WordProcessor {
 
   private def musixMatchService: MusixMatchClient = {
     new MusixMatchClient()
@@ -15,17 +15,17 @@ class WordCounter {
     wordCounts
   }
 
-  def getAllWordsSet(dirtyLyrics: StringBuilder) = {
+  def getAllDifferentWords(dirtyLyrics: StringBuilder) = {
     val allWords = mutable.Set.empty[String]
     cleanLyrics(dirtyLyrics).split("\\s+").foreach { rawWord => allWords.add(rawWord) }
     allWords
   }
   
-  def getSingleInstanceWords(dirtyLyrics : StringBuilder) = {
+  def getNonRepeatingWords(dirtyLyrics : StringBuilder) = {
     getWordCounts(dirtyLyrics).filter(_._2 == 1)
   }
   
-  def getMultipleInstanceWords(dirtyLyrics : StringBuilder) = {
+  def getRepeatingWords(dirtyLyrics : StringBuilder) = {
     getWordCounts(dirtyLyrics).filter(_._2 > 1)
   }
   
