@@ -14,7 +14,7 @@ body {
 	margin-bottom: 10px;
 }
 
-.mdl-grid{
+.mdl-grid {
 	height: 75%;
 	min-height: 500px;
 	width: 80%;
@@ -33,12 +33,12 @@ body {
 	margin-top: 8%;
 }
 
-.mdl-card{
+.mdl-card {
 	height: 100%;
 }
 
 #topArtistsCard {
-	background-color: #9C27B0;
+	background-color: white;
 }
 
 #searchArtistsCard {
@@ -53,3 +53,46 @@ body {
 	float: right;
 }
 
+.cardIcon {
+display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+
+	align-items: center;	
+	float: left;
+	height: 100%;
+	background-color: #9C27B0;
+}
+
+#cardWrapper {
+	height: 100%;
+	padding: 0;
+}
+
+.cardText {
+	height: 100%;
+	float: right;
+	display: block;
+}
+
+#buttonWrapper {
+	padding: 0;
+	border: none;
+}
+
+#icons {
+	text-align: center;
+	width: 100%;
+}
+
+.material-icons.md-50 {
+	font-size: 8em;
+}
+
+.material-icons.md-light.md-inactive {
+	color: rgba(255, 255, 255, 0.3);
+}
