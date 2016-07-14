@@ -33,10 +33,10 @@ class TopTracks extends Controller {
           aggregatedLyrics.append(musixMatchService.getLyrics(track.id).body)
     }
     
-    var map = wordProcessor.getWordCounts(aggregatedLyrics)
-    var list = immutable.ListMap(map.toSeq.sortWith(_._2 > _._2):_*)
-    var gsonString: String = new Gson().toJson(list)
-    Ok(gsonString).as("application/json")
+    var array = wordProcessor.getSortedWordCounts(aggregatedLyrics)
+    val gsonString: String = new Gson().toJson(array)
+    Ok(gsonString).as("application/json") 
+    //Ok(Json.stringify(Json.toJson(map))).as("application/json")
   }
 
   def getAllDifferentWords(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {

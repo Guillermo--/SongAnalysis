@@ -5,12 +5,8 @@
 <title>Top Songs</title>
 
 <link rel="stylesheet" href='/assets/stylesheets/topTracks.css'>
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<link
-	href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,300,100'
-	rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,300,100' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -24,7 +20,7 @@
 	</div>
 
 	<div class="contentDiv" ng-controller="wordCloudController">
-		<jqcloud words="words" width="500" height="350" steps="7"></jqcloud>
+		<jqcloud id="wordCloud" words="words" width="500" height="350" steps="7"></jqcloud>
 	</div>
 
 </body>

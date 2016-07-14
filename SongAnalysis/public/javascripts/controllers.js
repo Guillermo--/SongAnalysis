@@ -12,8 +12,12 @@ angular.module('app')
 	$scope.words = [];
 	
 	wordCloudService.getWordCloud(10).then(function(result) {
-		$scope.words = result.data;
-		console.log(JSON.stringify($scope.words));
+		var wordCloudArray = result.data.array;
+		$scope.words = wordCloudArray.filter(function(e){ return e === 0 || e });;
+		console.log($scope.words);
+		console.log($scope.words.length);
+		
+
 	})
 	
 	

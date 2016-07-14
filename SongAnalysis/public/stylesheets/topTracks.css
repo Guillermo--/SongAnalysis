@@ -40,3 +40,8 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 }
+
+#wordCloud {
+	z-index: 2;
+	background-color: white;
+}

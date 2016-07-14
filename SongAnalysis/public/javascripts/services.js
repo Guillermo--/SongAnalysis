@@ -9,6 +9,6 @@ angular.module('app')
 
 .service('wordCloudService', function($http) {
 	this.getWordCloud = function(resultNumber) {
-		return $http.get('/getWordCloud'+resultNumber, {});
+		return $http.get('/getWordCloud/'+resultNumber, {});
 	}
 })

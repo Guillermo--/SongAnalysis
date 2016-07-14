@@ -2,6 +2,9 @@ package services
 
 import musixmatch._
 import scala.collection._
+import models._
+import scala.collection.mutable.ArrayBuffer
+
 
 class WordProcessor {
 
@@ -13,6 +16,16 @@ class WordProcessor {
     val wordCounts = mutable.Map.empty[String, Int].withDefaultValue(0)
     cleanLyrics(dirtyLyrics).split("\\s+").foreach { rawWord => wordCounts(rawWord) += 1 }
     wordCounts
+  }
+  
+  def getSortedWordCounts(dirtyLyrics: StringBuilder) = {
+    val wordCounts = getWordCounts(dirtyLyrics)
+    var objectList = ArrayBuffer[Word]()
+    var sortedMap = immutable.ListMap(wordCounts.toSeq.sortWith(_._2 > _._2):_*).take(50)
+    
+    for ((word, count) <- sortedMap) objectList += new Word(word, count)
+    
+    objectList
   }
 
   def getAllDifferentWords(dirtyLyrics: StringBuilder) = {
