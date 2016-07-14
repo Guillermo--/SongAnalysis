@@ -4,9 +4,9 @@
 <meta charset="ISO-8859-1">
 <title>Welcome</title>
 
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<link rel="stylesheet" href='/assets/stylesheets/main.css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,300,100' rel='stylesheet' type='text/css'>
 
 </head>
 
@@ -17,29 +17,32 @@
 	<div class="content-grid mdl-grid">
 		<div class="leftContainer mdl-cell mdl-cell--6-col">
 			<div id="innerTop" class="mdl-cell mdl-cell--12-col">
-				<div id="topArtistsCard"
-					class="mdl-card mdl-shadow--3dp mdl-cell--12-col">
-
+				<div id="topArtistsCard" class="mdl-card mdl-shadow--3dp mdl-cell--12-col">
 					<div id="cardWrapper" class="mdl-card__title mdl-card--expand">
 						<div class="cardIcon mdl-cell--6-col">
 							<i id="icons" class="material-icons md-light md-inactive md-50">trending_up</i>
 						</div>
-						<div class="cardText mdl-cell--6-col">
-							<div id="textContent">Find out who are the current trending artists and get a complete analysis of their songs.</div>
+						<div class="cardText mdl-cell--6-col" ng-controller="routeController">
+							<div id="textContent"><span>Top Songs</span><br><br>Find out who are the current trending artists and get a complete analysis of their songs.</div>
 							<div id="buttonWrapper">
-								<a class="mdl-button mdl-js-button mdl-js-ripple-effect"> Get Top Artists </a>
+								<a class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="go('/top')"> Get Top Songs </a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="innerBottom" class="mdl-cell mdl-cell--12-col">
-				<div id="searchArtistsCard"
-					class="mdl-card mdl-shadow--3dp mdl-cell--12-col">
-					<div class="mdl-card__title mdl-card--expand"></div>
-					<div class="mdl-card__actions mdl-card--border">
-						<a class="mdl-button mdl-js-button mdl-js-ripple-effect">
-							Search </a>
+				<div id="searchArtistsCard" class="mdl-card mdl-shadow--3dp mdl-cell--12-col">
+					<div id="cardWrapper" class="mdl-card__title mdl-card--expand">
+						<div class="cardIcon mdl-cell--6-col">
+							<i id="icons" class="material-icons md-light md-inactive md-50">search</i>
+						</div>
+						<div class="cardText mdl-cell--6-col">
+							<div id="textContent"><span>Search</span><br><br>Search for an artist or a song, and learn about their most used words and features.</div>
+							<div id="buttonWrapper">
+								<a class="mdl-button mdl-js-button mdl-js-ripple-effect"> Search </a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

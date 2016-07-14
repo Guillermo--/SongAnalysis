@@ -26,7 +26,8 @@ class WordProcessor {
   }
   
   def getRepeatingWords(dirtyLyrics : StringBuilder) = {
-    getWordCounts(dirtyLyrics).filter(_._2 > 1)
+    var map = getWordCounts(dirtyLyrics).filter(_._2 > 1)
+    mutable.ListMap(map.toSeq.sortWith(_._2 > _._2):_*)
   }
   
   def cleanLyrics(dirtyLyrics : StringBuilder) = {

@@ -1,12 +1,14 @@
 package controllers
-
+import play.api.mvc.{ Action, Controller }
+import play.api.http.MimeTypes
 import scala.collection.JavaConversions._
 import musixmatch._
 import services._
 import scala.collection._
-import musixmatch.MusixMatchService
+import play.api.libs.json._
+import com.google.gson.Gson
 
-object TopTracks {
+class TopTracks extends Controller {
 
   private def musixMatchService: MusixMatchClient = {
     new MusixMatchClient()
@@ -16,19 +18,25 @@ object TopTracks {
     new WordProcessor()
   }
 
-  def getTopTracks(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
-    musixMatchService.getTrackCharts(country, hasLyrics, page, pageSize)
+  def getTopTracks(pageSize: Int = -1) = Action {
+    var trackList = musixMatchService.getTrackCharts(null, null, -1, pageSize)
+    val gsonString: String = new Gson().toJson(trackList)
+    Ok(gsonString).as("application/json")  
   }
 
-  def getOverallWordCount(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
+  def getTopWordCount(pageSize: Int = -1) = Action {
     var aggregatedLyrics = mutable.StringBuilder.newBuilder
 
-    getTopTracks(country, hasLyrics, page, pageSize).foreach {
+    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
       track =>
         if (musixMatchService.getLyrics(track.id) != null)
           aggregatedLyrics.append(musixMatchService.getLyrics(track.id).body)
     }
-    wordProcessor.getWordCounts(aggregatedLyrics)
+    
+    var map = wordProcessor.getWordCounts(aggregatedLyrics)
+    var list = immutable.ListMap(map.toSeq.sortWith(_._2 > _._2):_*)
+    var gsonString: String = new Gson().toJson(list)
+    Ok(gsonString).as("application/json")
   }
 
   def getAllDifferentWords(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
@@ -37,7 +45,7 @@ object TopTracks {
     var maxUniqueWords = 0.0
     var maxTotalWords = 0.0
 
-    getTopTracks(country, hasLyrics, page, pageSize).foreach {
+    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
       track =>
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {
@@ -62,7 +70,7 @@ object TopTracks {
     var maxTotalWords = 0.0
     var wordMap = mutable.Map.empty[String, Int]
 
-    getTopTracks(country, hasLyrics, page, pageSize).foreach {
+    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
       track =>
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {
@@ -87,9 +95,9 @@ object TopTracks {
     var maxRatio = 0.0
     var maxRepeatingWords = 0.0
     var maxTotalWords = 0.0
-    var wordMap = mutable.Map.empty[String, Int]
+    var wordMap = mutable.ListMap.empty[String, Int]
 
-    getTopTracks(country, hasLyrics, page, pageSize).foreach {
+    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
       track =>
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {

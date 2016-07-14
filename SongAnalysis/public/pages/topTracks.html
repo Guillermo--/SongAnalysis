@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Top Songs</title>
+
+<link rel="stylesheet" href='/assets/stylesheets/topTracks.css'>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,300,100'
+	rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+	<div class="leftDiv" ng-controller="songListController">
+		<div class="title">Top {{resultTracks.length}} Songs</div>
+		<div ng-repeat="track in resultTracks">
+			<span class="resultTrack">{{resultTracks.indexOf(track) + 1}}.
+				{{track.name}} by {{track.artistName}}</span>
+		</div>
+	</div>
+
+	<div class="contentDiv" ng-controller="wordCloudController">
+		<jqcloud words="words" width="500" height="350" steps="7"></jqcloud>
+	</div>
+
+</body>
+
+
+</html>
+
