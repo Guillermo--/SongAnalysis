@@ -13,14 +13,21 @@
 
 	<div class="leftDiv" ng-controller="songListController">
 		<div class="title">Top {{resultTracks.length}} Songs</div>
-		<div ng-repeat="track in resultTracks">
-			<span class="resultTrack">{{resultTracks.indexOf(track) + 1}}.
-				{{track.name}} by {{track.artistName}}</span>
+		<div class="trackWrapper" ng-repeat="track in resultTracks">
+			<span class="playIconWrapper"><i id="playIcon" class="material-icons">play_circle_outline</i></span>
+			<div class="trackInfo">	
+				<span class="trackTitle">
+					{{track.name}} 
+				</span>
+				<span class="trackArtist">
+					{{track.artistName}}	
+				</span>
+			</div>
 		</div>
 	</div>
 
 	<div class="contentDiv" ng-controller="wordCloudController">
-		<jqcloud id="wordCloud" words="words" width="500" height="350" steps="7"></jqcloud>
+		<jqcloud id="wordCloud" words="words" width="800" height="550" steps="7" font-size="{from:0.09, to:0.04}"></jqcloud>
 	</div>
 
 </body>

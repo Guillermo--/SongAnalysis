@@ -13,12 +13,10 @@ angular.module('app')
 	
 	wordCloudService.getWordCloud(10).then(function(result) {
 		var wordCloudArray = result.data.array;
-		$scope.words = wordCloudArray.filter(function(e){ return e === 0 || e });;
-		console.log($scope.words);
-		console.log($scope.words.length);
-		
+		$scope.words = wordCloudArray.filter(function(e){ return e === 0 || e });
+	});
+	
 
-	})
 	
 	
 })
