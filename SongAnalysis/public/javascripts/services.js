@@ -12,3 +12,13 @@ angular.module('app')
 		return $http.get('/getWordCloud/'+resultNumber, {});
 	}
 })
+
+.service('lyricDiversityService', function($http) {
+	this.getMostDiverseLyrics = function() {
+		return $http.get('/getMostDiverse/', {});
+	}
+	
+	this.getLeastDiverseLyrics = function() {
+		return $http.get('getLeastDiverse/', {});
+	}
+})

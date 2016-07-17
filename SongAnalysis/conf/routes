@@ -10,3 +10,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET		/getTop/:resultNumber		controllers.TopTracks.getTopTracks(resultNumber: Int)
 
 GET 	/getWordCloud/:resultNumber	controllers.TopTracks.getTopWordCount(resultNumber: Int)
+
+GET 	/getMostDiverse/				controllers.TopTracks.getTrackWithMostNonRepeatingWords()
+
+GET 	/getLeastDiverse/			controllers.TopTracks.getTrackWithMostRepeatingWords()

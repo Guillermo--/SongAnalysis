@@ -63,14 +63,14 @@ class TopTracks extends Controller {
     new Tuple4(trackWithMostUniqueWords, maxUniqueWords, maxTotalWords, maxUniquenessPercent)
   }
 
-  def getTrackWithMostNonRepeatingWords(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
+  def getTrackWithMostNonRepeatingWords() = Action {
     var trackWithMostNonRepeatingWords: Track = null
     var maxRatio = 0.0
     var maxNonRepeatingWords = 0.0
     var maxTotalWords = 0.0
     var wordMap = mutable.Map.empty[String, Int]
 
-    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
+    musixMatchService.getTrackCharts(null, null, -1, 10).foreach {
       track =>
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {
@@ -87,17 +87,20 @@ class TopTracks extends Controller {
           }
         }
     }
-    new Tuple5(trackWithMostNonRepeatingWords.name, maxNonRepeatingWords, maxTotalWords, maxRatio, wordMap)
+    
+    val tuple = new Tuple5(trackWithMostNonRepeatingWords.name, trackWithMostNonRepeatingWords.artistName, maxTotalWords, maxNonRepeatingWords, maxRatio)
+    val gsonString: String = new Gson().toJson(tuple)
+    Ok(gsonString).as("application/json")
   }
   
-  def getTrackWithMostRepeatingWords(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
+  def getTrackWithMostRepeatingWords() = Action {
     var trackWithMostRepeatingWords: Track = null
     var maxRatio = 0.0
     var maxRepeatingWords = 0.0
     var maxTotalWords = 0.0
     var wordMap = mutable.ListMap.empty[String, Int]
 
-    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
+    musixMatchService.getTrackCharts(null, null, -1, 10).foreach {
       track =>
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {
@@ -114,7 +117,10 @@ class TopTracks extends Controller {
           }
         }
     }
-    new Tuple5(trackWithMostRepeatingWords.name, maxRepeatingWords, maxTotalWords, maxRatio, wordMap)
+    val tuple = new Tuple5(trackWithMostRepeatingWords.name, trackWithMostRepeatingWords.artistName, maxTotalWords, maxRepeatingWords, maxRatio)
+    val gsonString: String = new Gson().toJson(tuple)
+    Ok(gsonString).as("application/json")
+  
   }
 
 }

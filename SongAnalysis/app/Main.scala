@@ -17,19 +17,7 @@ object Main {
   }
 
   def main(args: Array[String]) = {
-    var aggregatedLyrics = mutable.StringBuilder.newBuilder
-
-    service.getTrackCharts(null, null, -1, 10).foreach {
-      track =>
-        if (service.getLyrics(track.id) != null)
-          aggregatedLyrics.append(service.getLyrics(track.id).body)
-    }
     
-    var map = wordProcessor.getSortedWordCounts(aggregatedLyrics)    
-    
-    println(map.length);
-    map.foreach { x => println(x.text) };
-
 
   }
 
