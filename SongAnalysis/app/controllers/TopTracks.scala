@@ -68,22 +68,22 @@ class TopTracks extends Controller {
     var maxRatio = 0.0
     var maxNonRepeatingWords = 0.0
     var maxTotalWords = 0.0
-    var wordMap = mutable.Map.empty[String, Int]
 
     musixMatchService.getTrackCharts(null, null, -1, 10).foreach {
       track =>
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {
-          var map = wordProcessor.getNonRepeatingWords(new StringBuilder(lyrics))
-          var nonRepatingWords = map.size
-          var totalWords = wordProcessor.cleanLyrics(new StringBuilder(lyrics)).size
-          var ratio = nonRepatingWords.doubleValue() / totalWords.doubleValue() * 100
+        	var totalWordsMap = wordProcessor.getWordCounts(new StringBuilder(lyrics))
+        	var totalWords = totalWordsMap.size
+          var nonRepeatingWordsMap = wordProcessor.getNonRepeatingWords(totalWordsMap)
+          var nonRepeatingWords = nonRepeatingWordsMap.size
+          var ratio = nonRepeatingWords.doubleValue() / totalWords.doubleValue() * 100
+          
           if (ratio > maxRatio) {
             maxTotalWords = totalWords
-            maxNonRepeatingWords = nonRepatingWords
+            maxNonRepeatingWords = nonRepeatingWords
             maxRatio = BigDecimal(ratio).setScale(2, BigDecimal.RoundingMode.HALF_UP).doubleValue()
             trackWithMostNonRepeatingWords = track
-            wordMap = map
           }
         }
     }
@@ -95,29 +95,41 @@ class TopTracks extends Controller {
   
   def getTrackWithMostRepeatingWords() = Action {
     var trackWithMostRepeatingWords: Track = null
-    var maxRatio = 0.0
-    var maxRepeatingWords = 0.0
-    var maxTotalWords = 0.0
+    var minRatio = 0.0
+    var minRepeatingWords = 0.0
+    var minTotalWords = 0.0
     var wordMap = mutable.ListMap.empty[String, Int]
+    var count = 0;
 
     musixMatchService.getTrackCharts(null, null, -1, 10).foreach {
       track =>
+        
         var lyrics = musixMatchService.getLyrics(track.id).body
         if (lyrics != null) {
-          var map = wordProcessor.getRepeatingWords(new StringBuilder(lyrics))
-          var nonRepatingWords = map.size
-          var totalWords = wordProcessor.cleanLyrics(new StringBuilder(lyrics)).size
-          var ratio = nonRepatingWords.doubleValue() / totalWords.doubleValue() * 100
-          if (ratio > maxRatio) {
-            maxTotalWords = totalWords
-            maxRepeatingWords = nonRepatingWords
-            maxRatio = BigDecimal(ratio).setScale(2, BigDecimal.RoundingMode.HALF_UP).doubleValue()
-            trackWithMostRepeatingWords = track
-            wordMap = map
+          var totalWordsMap = wordProcessor.getWordCounts(new StringBuilder(lyrics))
+        	var totalWords = totalWordsMap.size
+          var repeatingWordsMap = wordProcessor.getNonRepeatingWords(totalWordsMap)
+          var nonRepeatingWords = repeatingWordsMap.size
+          var ratio = nonRepeatingWords.doubleValue() / totalWords.doubleValue() * 100
+          
+          if(count == 0) {
+              minTotalWords = totalWords
+              minRepeatingWords = nonRepeatingWords
+              minRatio = BigDecimal(ratio).setScale(2, BigDecimal.RoundingMode.HALF_UP).doubleValue()
+              trackWithMostRepeatingWords = track
+              count = count+1
+          }
+          else {
+            if (ratio < minRatio) {
+              minTotalWords = totalWords
+              minRepeatingWords = nonRepeatingWords
+              minRatio = BigDecimal(ratio).setScale(2, BigDecimal.RoundingMode.HALF_UP).doubleValue()
+              trackWithMostRepeatingWords = track
+            }
           }
         }
     }
-    val tuple = new Tuple5(trackWithMostRepeatingWords.name, trackWithMostRepeatingWords.artistName, maxTotalWords, maxRepeatingWords, maxRatio)
+    val tuple = new Tuple5(trackWithMostRepeatingWords.name, trackWithMostRepeatingWords.artistName, minTotalWords, minRepeatingWords, minRatio)
     val gsonString: String = new Gson().toJson(tuple)
     Ok(gsonString).as("application/json")
   

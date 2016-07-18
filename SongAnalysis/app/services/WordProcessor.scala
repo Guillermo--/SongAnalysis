@@ -34,12 +34,12 @@ class WordProcessor {
     allWords
   }
   
-  def getNonRepeatingWords(dirtyLyrics : StringBuilder) = {
-    getWordCounts(dirtyLyrics).filter(_._2 == 1)
+  def getNonRepeatingWords(totalWordsMap : Map[String, Int]) = {
+    totalWordsMap.filter(_._2 == 1)
   }
   
-  def getRepeatingWords(dirtyLyrics : StringBuilder) = {
-    var map = getWordCounts(dirtyLyrics).filter(_._2 > 1)
+  def getRepeatingWords(totalWordsMap : Map[String, Int]) = {
+    var map = totalWordsMap.filter(_._2 > 1)
     mutable.ListMap(map.toSeq.sortWith(_._2 > _._2):_*)
   }
   
