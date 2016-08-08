@@ -29,24 +29,28 @@
 	<div class="contentDiv" ng-controller="wordCloudController">
 		<div class="wordCloudContainer">
 			<div class="wordCloudTitle">Most Common Words</div>
-			<jqcloud id="wordCloud" words="words" width="900" height="550" colors="{{colors}}" steps="7" font-size="{from:0.09, to:0.05}"></jqcloud>
+			<jqcloud id="wordCloud" words="words" width="1300" height="300" colors="{{colors}}" steps="7" font-size="{from:0.075, to:0.025}" shape="rectangular"></jqcloud>
 		</div>
 		<div class="diverseVocabContainer" ng-controller="lyricDiversityController">
 			<div class="mostDiverseContainer">
 				<span class="title">Most diverse lyrics</span>
 				<span class="name">{{mostDiverse._1}}</span>
 				<span class="artist">{{mostDiverse._2}}</span>
-				<span>Total words: {{mostDiverse._3}}</span>
-				<span>Unique words: {{mostDiverse._4}}</span>
-				<span>Ratio: {{mostDiverse._5}}</span>
+				<div class="details">
+					<span>Total words: {{mostDiverse._3}}</span>
+					<span>Unique words: {{mostDiverse._4}}</span>
+					<span>Ratio: {{mostDiverse._5}}%</span>
+				</div>
 			</div>
 			<div class="leastDiverseContainer">
 				<span class="title">Least diverse lyrics</span>
 				<span class="name">{{leastDiverse._1}}</span>
 				<span class="artist">{{leastDiverse._2}}</span>
-				<span>Total words: {{mostDiverse._3}}</span>
-				<span>Unique words: {{mostDiverse._4}}</span>
-				<span>Ratio: {{mostDiverse._5}}</span>
+				<div class="details">
+					<span>Total words: {{leastDiverse._3}}</span>
+					<span>Unique words: {{leastDiverse._4}}</span>
+					<span>Ratio: {{leastDiverse._5}}%</span>
+				</div>
 			</div>
 		</div>
 	</div>

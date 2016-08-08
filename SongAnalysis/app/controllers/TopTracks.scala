@@ -36,7 +36,6 @@ class TopTracks extends Controller {
     var array = wordProcessor.getSortedWordCounts(aggregatedLyrics)
     val gsonString: String = new Gson().toJson(array)
     Ok(gsonString).as("application/json") 
-    //Ok(Json.stringify(Json.toJson(map))).as("application/json")
   }
 
   def getAllDifferentWords(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {

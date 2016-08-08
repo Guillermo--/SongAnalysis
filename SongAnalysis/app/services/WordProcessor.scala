@@ -21,7 +21,7 @@ class WordProcessor {
   def getSortedWordCounts(dirtyLyrics: StringBuilder) = {
     val wordCounts = getWordCounts(dirtyLyrics)
     var objectList = ArrayBuffer[Word]()
-    var sortedMap = immutable.ListMap(wordCounts.toSeq.sortWith(_._2 > _._2):_*).take(50)
+    var sortedMap = immutable.ListMap(wordCounts.toSeq.sortWith(_._2 > _._2):_*).take(35)
     
     for ((word, count) <- sortedMap) objectList += new Word(word, count)
     
@@ -36,11 +36,6 @@ class WordProcessor {
   
   def getNonRepeatingWords(totalWordsMap : Map[String, Int]) = {
     totalWordsMap.filter(_._2 == 1)
-  }
-  
-  def getRepeatingWords(totalWordsMap : Map[String, Int]) = {
-    var map = totalWordsMap.filter(_._2 > 1)
-    mutable.ListMap(map.toSeq.sortWith(_._2 > _._2):_*)
   }
   
   def cleanLyrics(dirtyLyrics : StringBuilder) = {
