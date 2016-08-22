@@ -19,13 +19,21 @@ class WordProcessor {
   }
   
   def getSortedWordCounts(dirtyLyrics: StringBuilder) = {
-    val wordCounts = getWordCounts(dirtyLyrics)
-    var objectList = ArrayBuffer[Word]()
-    var sortedMap = immutable.ListMap(wordCounts.toSeq.sortWith(_._2 > _._2):_*).take(35)
+    var wordCounts = getWordCounts(dirtyLyrics)
+    var resultList = ArrayBuffer[Word]()
+    var mapWithoutInterjections = wordCounts.filterKeys { 
+      x => 
+        !FilterWords.interjectionsList.contains(x) && 
+        !FilterWords.numbersList.contains(x) &&
+        !FilterWords.contractionsList.contains(x.toLowerCase()) &&
+        !FilterWords.prepositionsList.contains(x)    
+    }
     
-    for ((word, count) <- sortedMap) objectList += new Word(word, count)
+    var sortedMap = mutable.ListMap(mapWithoutInterjections.toSeq.sortWith(_._2 > _._2):_*).take(35)
     
-    objectList
+    for ((word, count) <- mapWithoutInterjections) resultList += new Word(word, count)
+    
+    resultList
   }
 
   def getAllDifferentWords(dirtyLyrics: StringBuilder) = {

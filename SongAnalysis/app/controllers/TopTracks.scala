@@ -38,29 +38,7 @@ class TopTracks extends Controller {
     Ok(gsonString).as("application/json") 
   }
 
-  def getAllDifferentWords(country: String = null, hasLyrics: String = null, page: Int = -1, pageSize: Int = -1) = {
-    var trackWithMostUniqueWords: Track = null
-    var maxUniquenessPercent = 0.0
-    var maxUniqueWords = 0.0
-    var maxTotalWords = 0.0
-
-    musixMatchService.getTrackCharts(null, null, -1, pageSize).foreach {
-      track =>
-        var lyrics = musixMatchService.getLyrics(track.id).body
-        if (lyrics != null) {
-          var uniqueWordsAmount = wordProcessor.getAllDifferentWords(new StringBuilder(lyrics)).size.doubleValue()
-          var totalWords = wordProcessor.cleanLyrics(new StringBuilder(lyrics)).size.doubleValue()
-          var uniquenessPercent = uniqueWordsAmount / totalWords * 100
-          if (uniquenessPercent > maxUniquenessPercent) {
-            maxUniqueWords = uniqueWordsAmount
-            maxTotalWords = totalWords
-            maxUniquenessPercent = BigDecimal(uniquenessPercent).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
-            trackWithMostUniqueWords = track
-          }
-        }
-    }
-    new Tuple4(trackWithMostUniqueWords, maxUniqueWords, maxTotalWords, maxUniquenessPercent)
-  }
+  
 
   def getTrackWithMostNonRepeatingWords() = Action {
     var trackWithMostNonRepeatingWords: Track = null
