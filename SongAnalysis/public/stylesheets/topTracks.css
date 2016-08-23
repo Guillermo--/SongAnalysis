@@ -102,12 +102,12 @@ html, body {
 }
 
 .mostDiverseContainer {
-	margin-left: 80px;
+	margin-left: 90px;
 }
 
 .leastDiverseContainer {
 	float: right;
-	margin-right: 70px;
+	margin-right: 90px;
 }
 
 .diverseVocabContainer .title {
@@ -121,21 +121,21 @@ html, body {
 	font-size: 2em;
 	font-weight: 300;
 	display: block;
-	margin-left: 30px;
 	line-height: 140%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .diverseVocabContainer .artist {
 	font-size: 1.5em;
 	font-weight: 300;
 	display: block;
-	margin-left: 30px;
 	line-height: 120%;
 	margin-bottom: 20px;
 }
 
 .diverseVocabContainer .details {
-	margin-left: 30px;
 	width: 100%;
 }
 

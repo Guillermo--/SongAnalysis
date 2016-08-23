@@ -21,7 +21,7 @@ class WordProcessor {
   def getSortedWordCounts(dirtyLyrics: StringBuilder) = {
     var wordCounts = getWordCounts(dirtyLyrics)
     var resultList = ArrayBuffer[Word]()
-    var mapWithoutInterjections = wordCounts.filterKeys { 
+    var filteredMap = wordCounts.filterKeys { 
       x => 
         !FilterWords.interjectionsList.contains(x) && 
         !FilterWords.numbersList.contains(x) &&
@@ -29,9 +29,9 @@ class WordProcessor {
         !FilterWords.prepositionsList.contains(x)    
     }
     
-    var sortedMap = mutable.ListMap(mapWithoutInterjections.toSeq.sortWith(_._2 > _._2):_*).take(35)
+    var sortedMap = mutable.ListMap(filteredMap.toSeq.sortWith(_._2 > _._2):_*).take(35)
     
-    for ((word, count) <- mapWithoutInterjections) resultList += new Word(word, count)
+    for ((word, count) <- filteredMap) resultList += new Word(word, count)
     
     resultList
   }

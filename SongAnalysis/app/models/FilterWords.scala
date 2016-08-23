@@ -72,7 +72,9 @@ object FilterWords {
     "for",
     "di",
     "a",
-    "an"
+    "an",
+    "the",
+    "to"
   )
 
 }
